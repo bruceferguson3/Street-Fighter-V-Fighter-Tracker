@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "SFV_CPT_Point_Tracker_Draft",
+    "slug": "sfv-player-tracker",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/splashTitleBigger.png",
+    "splash": {
+      "image": "./assets/images/NewSplash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false
+    },
+    "description": "Almost done, need to fix one thing"
+  }
+}
