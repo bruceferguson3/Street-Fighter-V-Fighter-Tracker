@@ -1,6 +1,6 @@
 # Street Fighter V Player Tracker
 
-####Utilizing React Native / React Native Navigation this application hits an API to display stats about a searched player. The user then has the option to either store the player or search again.
+#### Utilizing React Native / React Native Navigation this application hits an API to display stats about a searched player. The user then has the option to either store the player or search again.
 
 > Users can access real-time lookups of any player's rank, points, Gamertag, and country if said player has entered any Capcom ranking event. 
 
@@ -29,7 +29,7 @@
 
 > Users will always be able to view the top ranking players for Street Fighter V by navigating to `Top Players`
 
-####![](assets/readMe/TopPlayers.gif)
+#### ![](assets/readMe/TopPlayers.gif)
 
 > Users can search for their favorite players and have the option of either saving them or searching for another player. 
 >
@@ -41,7 +41,7 @@
 >
 >   - *WARNING all players saved will be deleted.*
 
-####![](assets/readMe/PlayerSearch:PlayerList.gif)
+#### ![](assets/readMe/PlayerSearch:PlayerList.gif)
 
 
 ## Running Tests
@@ -50,7 +50,7 @@ TODO: Write Test Examples
 
 ## Message to the User
 
-####Thank you for using my application! 
+#### Thank you for using my application! 
 
 > I designed this application to help keep track of players that are competing for points. It's a great way to spark competition between players!
 >
