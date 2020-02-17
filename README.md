@@ -54,7 +54,7 @@ TODO: Write Test Examples
 
 > I designed this application to help keep track of players that are competing for points. It's a great way to spark competition between players!
 >
-> Fight well! :punch: 
+> Fight well, stay competitive! :punch: 
 
 ## Contributing
 
