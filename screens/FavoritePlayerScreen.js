@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, AsyncStorage, Dimensions, ScrollView, Alert, Text } from "react-native";
-import { Button, ListItem, Card, PricingCard } from "react-native-elements";
+import { Button, ListItem, Card, } from "react-native-elements";
 
 
 class FavoritePlayerScreen extends React.Component {
@@ -21,6 +21,22 @@ class FavoritePlayerScreen extends React.Component {
     }
 
     getSavedPlayers() {
+
+        // setInterval(() => {
+        //     AsyncStorage.getAllKeys()
+        //         .then(keyArr => {
+        //             AsyncStorage.multiGet(keyArr)
+        //                 .then(results => {
+        //                     let playerStorage = [];
+        //                     results.map((finalResult) => {
+        //                         let result = JSON.parse(finalResult[1]);
+        //                         playerStorage.push(result);
+        //                     });
+        //                     this.setState({savedPlayerList: playerStorage, gotPlayers: true})
+        //                 })
+        //         })
+        // }, 2000)
+
         AsyncStorage.getAllKeys()
             .then(keyArr => {
                 AsyncStorage.multiGet(keyArr)
@@ -33,6 +49,7 @@ class FavoritePlayerScreen extends React.Component {
                         this.setState({savedPlayerList: playerStorage, gotPlayers: true})
                     })
             })
+
     }
 
     deletePlayer(playerName) {
@@ -56,17 +73,13 @@ class FavoritePlayerScreen extends React.Component {
         );
     }
 
-
-
-
-
     render() {
         return (
             <View style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', margin: 10}}>
-                <ScrollView style={{borderStyle: 'solid', borderWidth: 5, borderColor: 'black', marginBottom: 40, height: '85%', padding: 1.8, width: Dimensions.get('window').width/1.02}}>
                 {this.state.savedPlayerList[0]
                     ? (
-                        this.state.savedPlayerList.map((player, key) => {
+                        <ScrollView style={{borderStyle: 'solid', borderWidth: 5, borderColor: 'black', marginBottom: 40, height: '85%', padding: 1.8, width: Dimensions.get('window').width/1.02}}>
+                            {this.state.savedPlayerList.map((player, key) => {
                             return (
                                 <View key={key}>
                                     <ListItem
@@ -84,33 +97,40 @@ class FavoritePlayerScreen extends React.Component {
                                     />
                                 </View>
                             )
-                        })
+                        })}
+                        </ScrollView>
                     )
                     : (
-                        <View>
+                        <View style={{borderStyle: 'solid', borderWidth: 5, borderColor: 'black', marginBottom: 40, height: '85%', padding: 1.8, width: Dimensions.get('window').width/1.02}}>
                             <Card containerStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', height: Dimensions.get('window').height/1.78}}>
                                 <Text style={{fontSize: 30, fontWeight: 'bold'}}>NO PLAYERS SAVED</Text>
                             </Card>
                         </View>
                     )
                 }
-                </ScrollView>
-                <Button onPress={() => {
-                    Alert.alert(
-                        'Are you sure?',
-                        `Clicking OK will delete all your saved players.`,
-                        [
-                            {text: 'OK', onPress: () => {
-                                    AsyncStorage.clear()
-                                        .then(() => {
-                                            this.setState({savedPlayerList: []}, () => console.log('Players Cleared!'))
-                                        })
-                                }},
-                            {text: 'Cancel', onPress: () => console.log('Canceled Delete All Players...')}
-                        ],
-                        {cancelable: false},
-                    );
-                }} type={'solid'} title={'Clear All Saved Players'} style={{width: Dimensions.get('window').width/2}}/>
+
+                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center',
+                    justifyContent: 'space-evenly', width: Dimensions.get('window').width, }}>
+                    <Button onPress={() => {
+                        Alert.alert(
+                            'Are you sure?',
+                            `Clicking OK will delete all your saved players.`,
+                            [
+                                {text: 'OK', onPress: () => {
+                                        AsyncStorage.clear()
+                                            .then(() => {
+                                                this.setState({savedPlayerList: []}, () => console.log('Players Cleared!'))
+                                            })
+                                    }},
+                                {text: 'Cancel', onPress: () => console.log('Canceled Delete All Players...')}
+                            ],
+                            {cancelable: false},
+                        );
+                    }} type={'solid'} title={'Clear All Saved Players'} style={{width: Dimensions.get('window').width/2}}/>
+
+                    <Button onPress={this.getSavedPlayers} type={'solid'} title={'Update Player List'} style={{width: Dimensions.get('window').width/2.3}}/>
+
+                </View>
 
             </View>
         )
