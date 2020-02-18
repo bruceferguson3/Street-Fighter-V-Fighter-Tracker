@@ -12,12 +12,16 @@
  There are 2 requirements for running this app.
    * [X-Code](https://medium.com/@LondonAppBrewery/how-to-download-and-setup-xcode-10-for-ios-development-b63bed1865c) must be installed to use the IOS simulator.
    * [Expo](https://expo.io/learn) must be installed to use with the simulator.
+    
+ If you need to install Expo run this command
+
+    npm install expo-cli --g   
  
  Clone the repo down to your local machine.
  
     git clone https://github.com/bruceferguson3/Street-Fighter-V-Fighter-Tracker.git
     
- Use the package manager [npm](https://www.npmjs.com/get-npm) to install Expo.
+ Use the package manager [npm](https://www.npmjs.com/get-npm).
     
     npm install
     
