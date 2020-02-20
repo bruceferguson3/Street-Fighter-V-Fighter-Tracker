@@ -2,14 +2,68 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Alert, AsyncStorage, Platform, StatusBar, StyleSheet, View, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import AppNavigator from './navigation/AppNavigator.js';
+import UserLoginScreen from "./screens/UserLoginScreen.js";
 
 export default function App(props) {
 
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [isSignedIn, setSignedIn] = useState(false);
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [fadeValue, setFadeValue] = useState(new Animated.Value(0));
+
+  function recordUsername(event) {
+      setUsername(event.nativeEvent.text)
+  }
+
+  function recordPassword(event) {
+      setPassword(event.nativeEvent.text)
+  }
+
+
+
+  function makeNewUser() {
+      // AsyncStorage.clear()
+      //     .then(() => console.log('CLEARED'));
+      Alert.alert(
+          'User does not exist.',
+          'Would you like to make a new profile?',
+          [
+              {text: 'OK', onPress: () => {
+                      AsyncStorage.setItem(username, JSON.stringify({username: username, password: password}))
+                          .then(() => {
+                              console.log(`Saved User ${username}`);
+                              setSignedIn(true)
+                          })
+                          .catch((error) => {
+                              console.log('FAILED' + error)
+                          })
+                  }},
+          ],
+          {cancelable: false},
+      );
+  }
+
+  function checkIfUserExists() {
+      AsyncStorage.getItem(username)
+          .then((user) => {
+              console.log(user);
+              if (user === null) {
+                  makeNewUser()
+              } else {
+                  let userInfo = JSON.parse(user);
+                  console.log(`Welcome Back ${userInfo.username}!`);
+                  setSignedIn(true)
+              }
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+  }
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -23,7 +77,7 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+          {isSignedIn === true ? (<AppNavigator/>) : (<UserLoginScreen recordPassword={recordPassword} recordUsername={recordUsername} checkIfUserExists={checkIfUserExists}/>)}
       </View>
     );
   }

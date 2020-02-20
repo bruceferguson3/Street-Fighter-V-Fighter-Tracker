@@ -1,51 +1,68 @@
-import React from 'react';
-import { Dimensions, StyleSheet, Text, View, TextInput, Keyboard, Image, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions, StyleSheet, Text, View, TextInput, Keyboard, Image, Platform, Animated } from 'react-native';
 import { Button, Card, Header, Input, SearchBar, Icon} from "react-native-elements";
 
 const UserLoginScreen = (props) => {
 
-    const usernameInput = React.createRef();
-    const passwordInput = React.createRef();
+    const [fadeValue, setFadeValue] = useState(new Animated.Value(0));
+
+    function _start() {
+        Animated.timing(fadeValue, {
+            toValue: 1,
+            duration: 1000
+        }).start();
+    }
+
+    function componentDidMount() {
+        _start()
+    }
 
     return (
-        <View style={styles.mainContainer}>
-            <View style={styles.logoContainer}>
-                <Card containerStyle={{ marginTop: 60 }}>
-                    <Text style={styles.welcomeTitle}>Street Fighter V Player Tracker</Text>
-                </Card>
-                <Image style={styles.fireSparks} source={require('../assets/images/source.gif')}/>
-                <Image style={styles.logo} source={require('../assets/images/street_fighter_v_fighting_logo-1001668.png')}/>
-                <View style={styles.signInContainer}>
-                    <Button type={'solid'} title={'Sign In'} style={styles.signInButton}/>
-                    <View>
-                        <Input
-                            placeholder='Username'
-                            placeholderTextColor={'black'}
-                            leftIcon={{ type: 'person', name: 'person' }}
-                            containerStyle={styles.userNameInput}
-                            style={styles.userName}
-                            ref={usernameInput}
-                        />
-                        <Input
-                            placeholder='Password'
-                            placeholderTextColor={'black'}
-                            leftIcon={
-                                <Icon
-                                    name='lock'
-                                    size={24}
-                                    color='black'
-                                />
-                            }
-                            containerStyle={styles.passwordInput}
-                            ref={passwordInput}
-                        />
+            <View style={styles.mainContainer}>
+                <View style={styles.logoContainer}>
+                    <Card containerStyle={{ marginTop: 60 }}>
+                        <Text style={styles.welcomeTitle}>Street Fighter V Player Tracker</Text>
+                    </Card>
+                    <Image style={styles.fireSparks} source={require('../assets/images/source.gif')}/>
+                    <Animated.View style={{
+                        opacity: fadeValue,
+                    }}>
+                    <Image style={styles.logo} source={require('../assets/images/street_fighter_v_fighting_logo-1001668.png')}/>
+                    </Animated.View>
+                    <View style={styles.signInContainer}>
+                        <Button type={'solid'} title={'Sign In'} style={styles.signInButton} onPress={props.checkIfUserExists}/>
+                        <View>
+                            <Input
+                                placeholder='Username'
+                                placeholderTextColor={'grey'}
+                                leftIcon={{ type: 'person', name: 'person', marginRight: 10}}
+                                containerStyle={styles.userNameInput}
+                                style={styles.userName}
+                                onChange={props.recordUsername}
+                            />
+                            <Input
+                                placeholder='Password'
+                                placeholderTextColor={'grey'}
+                                leftIcon={
+                                    <Icon
+                                        name='lock'
+                                        size={23}
+                                        color='black'
+                                        containerStyle={{marginRight: 10}}
+                                    />
+                                }
+                                containerStyle={styles.passwordInput}
+                                onChange={props.recordPassword}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
-    )
+        )
 
 };
+
+
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -79,12 +96,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         backgroundColor: 'white',
         color: 'white',
-        height: Dimensions.get('window').height/10,
+        height: Dimensions.get('window').height/7,
         zIndex: 1000000
     },
     signInButton: {
         width: Dimensions.get('window').width/3.5,
-
     },
     userNameInput: {
         width: Dimensions.get('window').width/1.8,
@@ -144,7 +160,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
-
-
-export default UserLoginScreen;
+export default UserLoginScreen
