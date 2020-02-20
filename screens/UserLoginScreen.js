@@ -107,6 +107,7 @@ const UserLoginScreen = (props) => {
                                 onChange={props.recordPassword}
                             />
                         </View>
+                        <Button title={'Sign In'} type={'clear'} style={styles.signInButton} onPress={props.checkIfUserExists}/>
                     </View>
                     </Animated.View>
                 </View>
@@ -153,18 +154,19 @@ const styles = StyleSheet.create({
 
     },
     signInButton: {
-        width: Dimensions.get('window').width/3.5,
-        borderColor: 'white'
-
+        width: Dimensions.get('window').width/5,
+        marginTop: 20,
     },
     userNameInput: {
         width: Dimensions.get('window').width/1.5,
+        marginBottom: 5,
     },
     userName: {
         fontSize: 20
     },
     passwordInput: {
         width: Dimensions.get('window').width/1.5,
+        marginBottom: 5
     },
     logo: {
         width: Dimensions.get('window').width,
